@@ -1,15 +1,16 @@
-import fs from 'fs';
+import fs from 'fs'
 
 const text = 'I am fresh and young'
+const folderCheck = fs.existsSync('./src/fs/files/fresh.txt')
 
 const create = async () => {
-  if(fs.existsSync('./src/fs/files/fresh.txt')) {
+  if (folderCheck) {
     throw new Error('FS operation failed')
   } else {
-      fs.writeFile('./src/fs/files/fresh.txt', text, (err) => {
-        err? console.log(err) : null
+    fs.writeFile('./src/fs/files/fresh.txt', text, (err) => {
+      err ? console.log(err) : null
     })
   }
-};
+}
 
-await create();
+await create()
