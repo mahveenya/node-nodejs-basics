@@ -1,5 +1,15 @@
-const remove = async () => {
-    // Write your code here 
-};
+import fs from 'fs'
 
-await remove();
+const fileCheck = !fs.existsSync('./src/fs/files/fileToRemove.txt')
+
+const remove = async () => {
+  if (fileCheck) {
+    throw new Error('FS operation failed')
+  } else {
+    fs.unlink('./src/fs/files/fileToRemove.txt', (err) => {
+      err ? console.log(err) : null
+    })
+  }
+}
+
+await remove()
