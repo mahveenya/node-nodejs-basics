@@ -9,6 +9,6 @@ const calculateHash = async () => {
     hash.update(data)
     console.log(hash.digest('hex'))
   })
-};
+}
 
-await calculateHash();
+await calculateHash()
