@@ -2,15 +2,18 @@ import { sep, dirname } from 'path'
 import { release, version } from 'os'
 import { createServer as createServerHttp } from 'http'
 import './files/c.js'
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
 
 const random = Math.random()
 
 let unknownObject
 
 if (random > 0.5) {
-  unknownObject = import('./files/a.json', { assert: { type: 'json' } })
+  unknownObject = require('./files/a.json')
 } else {
-  unknownObject = import('./files/b.json', { assert: { type: 'json' } })
+  unknownObject = require('./files/b.json')
 }
 
 const __filename = import.meta.url
@@ -29,7 +32,7 @@ const myServer = createServerHttp((_, res) => {
 
 const PORT = 3000
 
-unknownObject.then((obj) => console.log(obj))
+console.log(unknownObject)
 
 myServer.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`)
