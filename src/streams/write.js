@@ -15,7 +15,7 @@ const displayInfo = () => {
 
 const write = async () => {
   process.stdin.on('data', (data) => {
-    ws.write(data.toString().trim())
+    ws.write(data)
   })
 }
 
