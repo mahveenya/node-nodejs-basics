@@ -1,12 +1,26 @@
-import fs from 'fs'
+import fs from 'fs/promises'
 
-const folderCheck = !fs.existsSync('./src/fs/files') || fs.existsSync('./src/fs/files_copy')
-
-const copy = async () => {
-  if (folderCheck) throw new Error('FS operation failed')
-  fs.cp('./src/fs/files', './src/fs/files_copy', { recursive: true }, (err) => {
-    err ? console.log(err) : null
+fs.access('./src/fs/files')
+  .then(() =>
+    fs
+      .access('./src/fs/files_copy')
+      .then(() => {
+        try {
+          throw new Error('FS operation failed')
+        } catch (e) {
+          console.log(e)
+        }
+      })
+      .catch(copy)
+  )
+  .catch(() => {
+    try {
+      throw new Error('FS operation failed')
+    } catch (e) {
+      console.log(e)
+    }
   })
-}
 
-await copy()
+const copy = () => {
+  fs.cp('./src/fs/files', './src/fs/files_copy', { recursive: true, force: true })
+}
