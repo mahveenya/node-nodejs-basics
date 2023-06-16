@@ -1,14 +1,11 @@
-import fs from 'fs'
-
-const fileCheck =
-  fs.existsSync('./src/fs/files/properFilename.md') ||
-  !fs.existsSync('./src/fs/files/wrongFilename.txt')
+import fs from 'fs/promises'
 
 const rename = async () => {
-  if (fileCheck) throw new Error('FS operation failed')
-  fs.rename('./src/fs/files/wrongFilename.txt', './src/fs/files/properFilename.md', (err) => {
-    err ? console.log(err) : null
-  })
+  try {
+    await fs.rename('./src/fs/files/wrongFilename.txt', './src/fs/files/properFilename.md')
+  } catch {
+    throw new Error('FS operation failed')
+  }
 }
 
 await rename()

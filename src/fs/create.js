@@ -1,13 +1,13 @@
-import fs from 'fs'
+import { writeFile } from 'fs/promises'
 
 const text = 'I am fresh and young'
-const folderCheck = fs.existsSync('./src/fs/files/fresh.txt')
 
 const create = async () => {
-  if (folderCheck) throw new Error('FS operation failed')
-  fs.writeFile('./src/fs/files/fresh.txt', text, (err) => {
-    err ? console.log(err) : null
-  })
+  try {
+    await writeFile('./src/fs/files/fresh.txt', text, { flag: 'ax' })
+  } catch (e) {
+    throw new Error('FS operation failed')
+  }
 }
 
 await create()
