@@ -1,4 +1,4 @@
-import { readFile, open } from 'fs/promises'
+import { readFile } from 'fs/promises'
 
 const read = async () => {
   try {
