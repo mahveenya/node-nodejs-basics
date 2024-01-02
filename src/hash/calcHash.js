@@ -1,14 +1,17 @@
-import fs from 'fs'
+import { readFile } from 'fs/promises'
 import crypto from 'crypto'
 
 const calculateHash = async () => {
-  fs.readFile('src/hash/files/fileToCalculateHashFor.txt', (err, data) => {
-    if (err) throw new Error(err)
-
+  try {
+    const fileData = readFile('src/hash/files/fileToCalculateHashFor.txt', {
+      encoding: 'utf8',
+    })
     const hash = crypto.createHash('sha256')
-    hash.update(data)
+    hash.update(fileData)
     console.log(hash.digest('hex'))
-  })
+  } catch {
+    throw new Error('FS operation failed')
+  }
 }
 
 await calculateHash()
