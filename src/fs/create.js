@@ -5,7 +5,7 @@ const text = 'I am fresh and young'
 const create = async () => {
   try {
     await writeFile('./src/fs/files/fresh.txt', text, { flag: 'ax' })
-  } catch (e) {
+  } catch {
     throw new Error('FS operation failed')
   }
 }
