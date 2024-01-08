@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
-import { access, copyFile } from 'fs/promises'
+import { access, constants, copyFile, mkdir, lstat } from 'fs/promises'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -10,14 +10,15 @@ const copy = async () => {
     const filesFolder = join(__dirname, 'files')
     const filesCopyFolder = join(__dirname, 'files_copy')
 
-    const filesFolderDoesntExist = (await access(filesFolder)) !== undefined
-    if (filesFolderDoesntExist) throw new Error("files folder doesn't exist")
+    await access(filesFolder, constants.R_OK)
 
-    const filesCopyFolderExists = (await access(filesCopyFolder)) === undefined
-    if (filesCopyFolderExists)
+    const filesCopyFolderExists = (await lstat(filesCopyFolder)).isDirectory()
+    if (filesCopyFolderExists) {
       throw new Error('files_copy folder already exists')
+    } else {
+      await mkdir(filesCopyFolder)
+    }
 
-    await mkdir(filesCopyFolder)
     const filesToCopy = await readdir(filesFolder)
 
     await Promise.all(
