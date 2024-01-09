@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
-import { access, constants, copyFile, mkdir, lstat } from 'fs/promises'
+import { access, copyFile, mkdir, lstat } from 'fs/promises'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -10,7 +10,7 @@ const copy = async () => {
     const filesFolder = join(__dirname, 'files')
     const filesCopyFolder = join(__dirname, 'files_copy')
 
-    await access(filesFolder, constants.R_OK)
+    await access(filesFolder)
 
     const filesCopyFolderExists = (await lstat(filesCopyFolder)).isDirectory()
     if (filesCopyFolderExists) {
@@ -28,7 +28,7 @@ const copy = async () => {
       ),
     )
   } catch (e) {
-    throw new Error(`FS operation failed: ${e.message}`)
+    throw new Error(`FS operation failed:\n${e.message}`)
   }
 }
 
