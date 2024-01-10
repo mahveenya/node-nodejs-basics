@@ -1,13 +1,19 @@
-import { readdir, access } from 'fs/promises'
+import { fileURLToPath } from 'url'
+import { dirname, join } from 'path'
+import { opendir } from 'fs/promises'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 const list = async () => {
   try {
-    await access('./src/fs/files')
-    const files = await readdir('./src/fs/files/')
-    const names = files.map(e => e.slice(0, e.indexOf('.')))
-    console.table(names)
-  } catch {
-    throw new Error('FS operation failed')
+    const dirToReadPath = join(__dirname, 'files')
+    const dir = await opendir(dirToReadPath)
+    for await (const dirent of dir) {
+      console.log(dirent.name)
+    }
+  } catch(e) {
+    throw new Error(`FS operation failed:\n${e.message}`)
   }
 }
 
