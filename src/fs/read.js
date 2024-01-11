@@ -15,7 +15,9 @@ const read = async () => {
 
     await fileHandle.read(buffer, offset, length, position)
 
-    console.log(buffer.toString())
+    await fileHandle.on('close', () => {
+      console.log(buffer.toString())
+    })
 
     await fileHandle.close()
   } catch (e) {
