@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'url'
 import { sep, dirname } from 'path'
 import { release, version } from 'os'
 import { createServer as createServerHttp } from 'http'
@@ -16,7 +17,7 @@ if (random > 0.5) {
   unknownObject = require('./files/b.json')
 }
 
-const __filename = import.meta.url
+const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 console.log(`Release ${release()}`)
