@@ -9,7 +9,7 @@ const create = async () => {
     const newFilePath = join(__dirname, 'files', 'fresh.txt')
     await writeFile(newFilePath, text, { flag: 'ax' })
   } catch {
-    throw new Error('FS operation failed')
+    throw new Error(`FS operation failed:\n${e.message}`)
   }
 }
 
