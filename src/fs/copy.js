@@ -4,8 +4,8 @@ import { __dirname } from '../__dirname.js'
 
 const copy = async () => {
   try {
-    const filesFolder = join(__dirname, 'files')
-    const filesCopyFolder = join(__dirname, 'files_copy')
+    const filesFolder = join(__dirname, 'fs', 'files')
+    const filesCopyFolder = join(__dirname, 'fs', 'files_copy')
 
     await access(filesFolder)
 

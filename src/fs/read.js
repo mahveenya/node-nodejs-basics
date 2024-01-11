@@ -4,7 +4,7 @@ import { __dirname } from '../__dirname.js'
 
 const read = async () => {
   try {
-    const fileToReadPath = join(__dirname, 'files', 'fileToRead.txt')
+    const fileToReadPath = join(__dirname, 'fs', 'files', 'fileToRead.txt')
 
     const fileHandle = await open(fileToReadPath)
     const fileSize = (await fileHandle.stat()).size
