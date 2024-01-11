@@ -1,9 +1,6 @@
-import { fileURLToPath } from 'url'
-import { dirname, join } from 'path'
+import { join } from 'path'
 import { opendir } from 'fs/promises'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+import { __dirname } from '../__dirname.js'
 
 const list = async () => {
   try {
