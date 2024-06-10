@@ -1,5 +1,9 @@
-const read = async () => {
-    // Write your code here 
-};
+import fs from 'fs'
 
-await read();
+const rs = fs.createReadStream('./src/streams/files/fileToRead.txt')
+
+const read = async () => {
+  rs.pipe(process.stdout)
+}
+
+await read()
